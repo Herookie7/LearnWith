@@ -32,15 +32,9 @@
             <div class="col s12 m8">
                 <div class="card z-depth-3">
                     <div class="card-content teal lighten-2 white-text">
-                        <span class="card-title"><strong
-                                th:text="${tutor.tutorName} + ' ' + ${tutor.tutorSurname}"></strong>
+                        <span class="card-title"><strong th:text="${tutor.tutorName} + ' ' + ${tutor.tutorSurname}"></strong></span>
                         <span sec:authorize="hasRole('ADMIN')">
-                                    <a th:href="@{/tutors/edit/{tutorId}
-                                    (tutorId=${tutor.tutorId})}"
-                                       class="btn-floating waves-effect waves-light btn-small yellow darken-1"><i
-                                            class="material-icons">edit</i>
-                                    </a>
-                                    </span>
+                            <a th:href="@{/tutors/edit/{tutorId}(tutorId=${tutor.tutorId})}" class="btn-floating waves-effect waves-light btn-small yellow darken-1"><i class="material-icons">edit</i></a>
                         </span>
                         <p th:if="${tutor.tutorDetail}">
                             <span th:text="${tutor.tutorDetail}">Detail</span>
@@ -53,28 +47,25 @@
                     </div>
                     <!-- Modal Structure -->
                     <div id="modal-detail" class="modal">
-                        <form th:action="@{/tutors/patch/{tutorId} (tutorId=${tutor.tutorId})}" th:object="${tutor}" method="post">
-
-                        <div class="modal-content">
-                            <h4 class="teal-text">Tell us about yourself</h4>
-                            <div class="input-field">
-                                <label for="detail-tutor">Detail</label>
-                                <textarea th:field="*{tutorDetail}" id="detail-tutor" class="materialize-textarea"></textarea>
+                        <form th:action="@{/tutors/patch/{tutorId}(tutorId=${tutor.tutorId})}" th:object="${tutor}" method="post">
+                            <div class="modal-content">
+                                <h4 class="teal-text">Tell us about yourself</h4>
+                                <div class="input-field">
+                                    <textarea th:field="*{tutorDetail}" id="detail-tutor" class="materialize-textarea"></textarea>
+                                    <label for="detail-tutor">Detail</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-red btn-flat red-text">Cancel</a>
-                            <button type="submit" class="modal-close waves-effect waves-green btn-flat teal-text">
-                                Confirm</button>
-                        </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-red btn-flat red-text">Cancel</a>
+                                <button type="submit" class="modal-close waves-effect waves-green btn-flat teal-text">Confirm</button>
+                            </div>
                         </form>
                     </div>
                     <div class="card-action">
                         <!-- courses -->
                         <h5 class="teal-text mb-4">courses <span sec:authorize="hasRole('ADMIN')">
-                            <a th:href="@{/courses/add/{tutorId} (tutorId=${tutor.tutorId})}" class="btn-floating btn-small waves-effect waves-light lighten-1"><i class="material-icons">add</i></a>
-                        </span>
-                        </h5>
+                            <a th:href="@{/courses/add/{tutorId}(tutorId=${tutor.tutorId})}" class="btn-floating btn-small waves-effect waves-light lighten-1"><i class="material-icons">add</i></a>
+                        </span></h5>
                         <div class="mb-3" th:each="course:${courses}">
                             <a th:href="|/courses/${course.courseId}|"><strong th:text="${course.courseName}">courses</strong></a>
                         </div>

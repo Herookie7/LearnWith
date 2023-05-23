@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-//@PreAuthorize("hasRole('USER')")
+// @PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
 @AllArgsConstructor
 public class SecurityController {
 

@@ -35,14 +35,14 @@ public class TutorController {
     }
 
     @GetMapping("/add")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
     public String addProfessor(Model model) {
         model.addAttribute("tutor", new TutorDto());
         return "tutors/tutor-add";
     }
 
     @PostMapping("/save")
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
     public String saveTutor(TutorDto tutor) {
         tutorService.create(tutor);
 
@@ -50,7 +50,7 @@ public class TutorController {
     }
 
     @GetMapping("/edit/{tutorId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getTutorForUpdate(@PathVariable Long tutorId,
                                        Model model) {
         try {
@@ -65,7 +65,7 @@ public class TutorController {
     }
 
     @PostMapping("/update/{tutorId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String updateTutor(@PathVariable Long tutorId,
                                  Tutor tutor, RedirectAttributes attributes, Model model){
 
@@ -106,7 +106,8 @@ public class TutorController {
     }
 
     @GetMapping
-    //@PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
     public String getTutorsList(Model model) {
         List<Tutor> tutors = tutorService.getAll();
         model.addAttribute("tutors", tutors);
@@ -114,7 +115,7 @@ public class TutorController {
     }
 
     @GetMapping("/delete/{tutorId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteTutor(@PathVariable Long tutorId, Model model) {
         try {
             Tutor tutorActual = tutorRepository.findById(tutorId).get();
@@ -129,7 +130,8 @@ public class TutorController {
     }
 
     @GetMapping("/{tutorId}")
-    //@PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
     public String getTutorDetail(@PathVariable Long tutorId, Model model) {
         try {
             Tutor tutor = tutorRepository.findById(tutorId).get();

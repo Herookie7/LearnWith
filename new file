@@ -79,7 +79,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="#!" class="modal-close waves-effect waves-red btn-flat red-text">Cancel</a>
-                    <a th:href="|/enrollment/save/${course.courseId}|" class="modal-close waves-effect waves-green btn-flat teal-text">Confirm</a>
+                    <button id="payButton" class="modal-close waves-effect waves-green btn-flat teal-text">Pay Now</button>
                 </div>
             </div>
         </div>
@@ -94,6 +94,14 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="/js/materialize.js"></script>
 <script src="/js/init.js"></script>
+
+<!-- Payment Gateway Script -->
+<script>
+    document.getElementById("payButton").addEventListener("click", function() {
+        // Replace 'YOUR_PAYMENT_GATEWAY_URL' with the actual payment gateway URL
+        window.location.href = '';
+    });
+</script>
 
 </body>
 </html>

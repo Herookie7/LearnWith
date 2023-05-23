@@ -64,10 +64,10 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!-- Database versioning -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-        </dependency> -->
+        </dependency>
         <!-- Spring Boot Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

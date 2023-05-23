@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/enrollment")
-//@PreAuthorize("hasRole('USER')")
+// @PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
 public class EnrollmentController {
 
     private EnrollmentService enrollmentService;

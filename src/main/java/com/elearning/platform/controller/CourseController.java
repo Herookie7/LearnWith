@@ -44,7 +44,7 @@ public class CourseController {
     }
 
     @GetMapping("/add/{tutorId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addCourse(@PathVariable Long tutorId, Model model) {
         try {
             Tutor current = tutorRepository.findById(tutorId).get();
@@ -59,7 +59,7 @@ public class CourseController {
     }
 
     @PostMapping("/add/{tutorId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String saveCourse(@PathVariable Long tutorId, CourseDto course, Model model) {
         try {
             Tutor current = tutorRepository.findById(tutorId).get();
@@ -75,7 +75,7 @@ public class CourseController {
     }
 
     @GetMapping("/edit/{courseId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getCourseForUpdate(@PathVariable Long courseId, Model model) {
         try {
             Course courseActual = courseRepository.findById(courseId).get();
@@ -89,7 +89,7 @@ public class CourseController {
     }
 
     @PostMapping("/edit/{tutorId}/{courseId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String updateCourse(@PathVariable Long tutorId, @PathVariable Long courseId, Course course, Model model, RedirectAttributes attributes) {
 
         try {
@@ -115,7 +115,7 @@ public class CourseController {
     }
 
     @GetMapping("/delete/{courseId}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteCourse(@PathVariable Long courseId, Model model) {
         try {
             Course courseActual = courseRepository.findById(courseId).get();
@@ -130,7 +130,8 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
-    //@PreAuthorize("hasRole('USER')")
+    // @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'TUTOR')")
     public String getCourseDetail(@PathVariable Long courseId, Authentication authentication, Model model) {
         String username = authentication.getName();
         Boolean enrollment = false;

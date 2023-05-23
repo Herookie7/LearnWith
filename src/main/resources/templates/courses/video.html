@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:insert="fragments/head">
+</head>
+<body>
+  <header th:insert="fragments/header">
+  </header>
+    <main>
+        <div class="container">
+            <h1>Video Player</h1>
+            <div id="player"></div>
+            <div id="comments"></div>
+        </div>
+    </main>
+
+    <footer class="page-footer teal" th:insert="fragments/footer">
+    </footer>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // YouTube API callback function
+        function onYouTubeIframeAPIReady() {
+            // Retrieve the video URL from the URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const videoUrl = params.get('url');
+
+            // Create a new YouTube player instance
+            const player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: getVideoId(videoUrl),
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+
+            // Function to extract the video ID from the URL
+            function getVideoId(url) {
+                const videoIdRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|v\/|embed\/)|youtu\.be\/|ytscreeningroom\?v=|youtube\.com\/user\/[^#]*#([^\/]*\/)*)?([^#\&\?]*).*/;
+                const match = url.match(videoIdRegex);
+                return match && match[2].length === 11 ? match[2] : null;
+            }
+
+            // Callback function when the player is ready
+            function onPlayerReady(event) {
+                // Add your custom logic here when the player is ready
+                // For example, you can load and display the comments
+                loadComments();
+            }
+
+            // Callback function when the player's state changes
+            function onPlayerStateChange(event) {
+                // Add your custom logic here when the player's state changes
+                // For example, you can pause or resume the comments
+                // based on the player's state
+            }
+
+            // Function to load and display the comments
+            function loadComments() {
+                // Use your YouTube API key here
+                const apiKey = 'AIzaSyDFrrhMkJxaxtJJD0iO35YyNMWL73189tM';
+
+                // Use the video ID to retrieve the comments using the YouTube API
+                const apiUrl = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${player.getVideoData().video_id}&key=${apiKey}`;
+
+                // Make an API request to retrieve the comments
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Process the retrieved comments and display them
+                        const commentsContainer = document.getElementById('comments');
+                        const comments = data.items.map(item => item.snippet.topLevelComment.snippet.textDisplay);
+                        comments.forEach(comment => {
+                            const commentElement = document.createElement('p');
+                            commentElement.textContent = comment;
+                            commentsContainer.appendChild(commentElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading comments:', error);
+                    });
+            }
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Load the YouTube API script asynchronously
+        (function() {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        })();
+    </script>
+</body>
+</html>

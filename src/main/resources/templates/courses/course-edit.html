@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:insert="fragments/head">
-
 </head>
 <body>
 <header th:insert="fragments/header"></header>
@@ -11,7 +10,7 @@
         <h3 class="center">Edit Course</h3>
         <br>
         <div class="row">
-            <div class="section col s12 l6 offset-l3">
+            <div class="col s12 l6 offset-l3 section">
                 <form action="#" method="post"
                       th:object="${course}"
                       th:action="@{/courses/edit/{tutorId}/{courseId} (tutorId=${course.tutor.tutorId}, courseId=${course.courseId})}"
@@ -31,7 +30,7 @@
                             <option th:value="'Intermediate'" th:text="Intermediate"></option>
                             <option th:value="'Advanced'" th:text="Advanced"></option>
                         </select>
-                        <label>Difficulty</label>
+                        <label for="difficulty">Difficulty</label>
                     </div>
 
                     <div class="input-field">
@@ -72,15 +71,15 @@
         </div>
     </div>
 </main>
+
 <br><br>
-
 <footer class="page-footer teal" th:insert="fragments/footer">
-
 </footer>
 
-<!--  Scripts-->
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="/js/materialize.js"></script>
 <script src="/js/init.js"></script>
+
 </body>
 </html>

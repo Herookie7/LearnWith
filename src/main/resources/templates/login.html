@@ -1,42 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head th:insert="fragments/head">
+<!-- Head fragment -->
 </head>
+
 <body>
-<header th:insert="fragments/header"></header>
+<header th:insert="fragments/header">
+<!-- Header Fragment -->
+</header>
 
 <main>
     <div class="container">
         <h3 class="center">Log in</h3>
         <br>
         <div class="row">
-            <div class="section col s12 m6 l4 offset-m3 offset-l4">
-                <form method="post"
-                      th:action="@{/login}"
-                >
+            <div class="col s12 m6 offset-m3 l4 offset-l4">
+                <form method="post" th:action="@{/login}">
                     <div th:if="${param.error}">
                         <h5 class="center red-text text-lighten-1">Invalid username or password</h5>
                     </div>
                     <br>
                     <div class="input-field">
-                        <label for="username">UserName</label>
-                        <input type="text" class="class-controller"
-                               id="username" name="username" autofocus
-                        >
+                        <label for="username">Username</label>
+                        <input type="text" class="validate" id="username" name="username" autofocus>
                     </div>
-
-                    <div class="input-field mb-5">
+                    <div class="input-field">
                         <label for="password">Password</label>
-                        <input type="password" class="class-controller"
-                               id="password" name="password"
-                        >
+                        <input type="password" class="validate" id="password" name="password">
                     </div>
-
                     <div class="center">
-                        <button type="submit" class="btn">
-                            Log in
-                        </button>
+                        <button type="submit" class="btn">Log in</button>
                     </div>
                     <div class="mt-5">
                         <span>You aren't registered yet? </span><a th:href="@{/register}" class="teal-text">Sign up here</a>
@@ -46,14 +40,16 @@
         </div>
     </div>
 </main>
-<br><br>
-<footer class="page-footer teal" th:insert="fragments/footer">
 
+<footer class="page-footer teal" th:insert="fragments/footer">
+<!-- Footer fragment -->
 </footer>
 
-<!--  Scripts-->
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="/js/materialize.js"></script>
 <script src="/js/init.js"></script>
+
 </body>
+
 </html>
